@@ -1,10 +1,10 @@
 package service
 
 import (
-	"chirpify/data/request"
-	"chirpify/data/response"
 	"chirpify/helper"
-	"chirpify/model"
+	"chirpify/http/request"
+	"chirpify/http/response"
+	"chirpify/internal/model"
 	"errors"
 	"fmt"
 	"sync"

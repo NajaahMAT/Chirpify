@@ -1,6 +1,6 @@
 package response
 
-import "chirpify/model"
+import "chirpify/internal/model"
 
 type Response struct {
 	Code   int         `json:"code"`

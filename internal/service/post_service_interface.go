@@ -1,9 +1,9 @@
 package service
 
 import (
-	"chirpify/data/request"
-	"chirpify/data/response"
-	"chirpify/model"
+	"chirpify/http/request"
+	"chirpify/http/response"
+	"chirpify/internal/model"
 )
 
 type PostService interface {

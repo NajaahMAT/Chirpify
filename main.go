@@ -3,7 +3,7 @@ package main
 import (
 	"chirpify/config"
 	"chirpify/helper"
-	"chirpify/router"
+	"chirpify/http/router"
 	"context"
 	"log"
 	"net/http"

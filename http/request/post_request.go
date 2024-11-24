@@ -1,7 +1,7 @@
 package request
 
 import (
-	"chirpify/model"
+	"chirpify/internal/model"
 )
 
 // UpdatePostRequest represents the request payload for updating a post.

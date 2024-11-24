@@ -1,8 +1,8 @@
 package posts
 
 import (
-	"chirpify/model"
-	"chirpify/service"
+	"chirpify/internal/model"
+	"chirpify/internal/service"
 )
 
 // Helper function to add mock posts

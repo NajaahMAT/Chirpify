@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "c1013fd6-404d-4a65-90b3-685e18d7c41b",
+		"name": "Chipify",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37005212"
+	},
+	"item": [
+		{
+			"name": "01. Create a Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_id\": 123,\n  \"message\": \"Hello, world!\",\n  \"link\": \"http://example.com\",\n  \"caption\": \"Example Caption\",\n  \"description\": \"This is a sample description\",\n  \"picture\": \"http://example.com/picture.jpg\",\n  \"name\": \"Sample Post\",\n  \"tags\": [\"tag1\", \"tag2\"],\n  \"source\": \"mobile\",\n  \"fileURL\": \"http://example.com/file.mp4\",\n  \"privacy\": {\n    \"value\": \"public\"\n  },\n  \"scheduledPublishTime\": 1672531200,\n  \"allowComments\": true,\n  \"location\": {\n    \"latitude\": 37.7749,\n    \"longitude\": -122.4194\n  },\n  \"status\": \"published\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02. Update a Post",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"message\": \"Have a nice day!\",\n  \"link\": \"http://example.com\",\n  \"caption\": \"Example Caption\",\n  \"description\": \"This is a sample description\",\n  \"picture\": \"http://example.com/picture.jpg\",\n  \"name\": \"Sample Post\",\n  \"tags\": [\"tag1\", \"tag2\"],\n  \"source\": \"mobile\",\n  \"fileURL\": \"http://example.com/file.mp4\",\n  \"privacy\": {\n    \"value\": \"public\"\n  },\n  \"scheduledPublishTime\": 1672531200,\n  \"allowComments\": true,\n  \"location\": {\n    \"latitude\": 37.7749,\n    \"longitude\": -122.4194\n  },\n  \"status\": \"published\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/posts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "03. Retrieve All Posts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "04. Like a Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"post_id\": 1,\n    \"user_id\": 125\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/posts/1/like",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"1",
+						"like"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "05. Add a Comment to a Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": 123,\n    \"comment_text\": \"This is a comment on the post.\",\n    \"parent_comment_id\": 0,\n    \"is_edited\": false,\n    \"attachments\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/posts/1/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"1",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "06. Retrieve Post Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/posts/1/details",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"posts",
+						"1",
+						"details"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

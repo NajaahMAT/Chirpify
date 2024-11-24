@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"chirpify/data/request"
-	"chirpify/data/response"
-	"chirpify/service"
+	"chirpify/http/request"
+	"chirpify/http/response"
+	"chirpify/internal/service"
 	"log"
 	"net/http"
 	"strconv"

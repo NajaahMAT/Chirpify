@@ -1,9 +1,9 @@
 package posts
 
 import (
-	"chirpify/controller"
-	"chirpify/data/response"
-	"chirpify/service"
+	"chirpify/http/controller"
+	"chirpify/http/response"
+	"chirpify/internal/service"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"

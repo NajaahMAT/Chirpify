@@ -1,10 +1,11 @@
 package router
 
 import (
-	"chirpify/controller"
-	"chirpify/service"
+	"chirpify/http/controller"
+	"chirpify/internal/service"
 
 	"github.com/gin-gonic/gin"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 type Dependencies struct {
@@ -42,6 +43,11 @@ func NewRouter(deps *Dependencies) *gin.Engine {
 
 	// Route for retrieving details of a post, including comments and likes
 	baseRouter.GET("/posts/:postID/details", deps.PostController.GetPostDetails)
+
+	// Route for Swagger documentation
+	router.GET("/swagger/*any", func(c *gin.Context) {
+		httpSwagger.WrapHandler(c.Writer, c.Request)
+	})
 
 	// Return the Gin router with all routes set up
 	return router

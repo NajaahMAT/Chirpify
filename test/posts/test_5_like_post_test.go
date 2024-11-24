@@ -2,10 +2,10 @@ package posts
 
 import (
 	"bytes"
-	"chirpify/controller"
-	"chirpify/data/request"
-	"chirpify/data/response"
-	"chirpify/service"
+	"chirpify/http/controller"
+	"chirpify/http/request"
+	"chirpify/http/response"
+	"chirpify/internal/service"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
