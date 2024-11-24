@@ -310,17 +310,11 @@
                     "description": "The content of the comment",
                     "type": "string"
                 },
-                "created_at": {
-                    "type": "string"
-                },
                 "is_edited": {
                     "type": "boolean"
                 },
                 "parent_comment_id": {
                     "type": "integer"
-                },
-                "updated_at": {
-                    "type": "string"
                 },
                 "user_id": {
                     "description": "ID of the user adding the comment",
