@@ -127,28 +127,28 @@ func (s *PostServiceImpl) GetAllPosts() ([]model.Post, error) {
 	return posts, nil
 }
 
-func (s *PostServiceImpl) LikePost(userID, postID int64) (string, error) {
+func (s *PostServiceImpl) LikePost(request request.LikeRequest) (string, error) {
 	s.Mutex.Lock()
 	defer s.Mutex.Unlock()
 
 	// Initialize Likes map for the post if it doesn't exist
-	if _, exists := s.Likes[postID]; !exists {
-		s.Likes[postID] = []model.LikeRecord{}
+	if _, exists := s.Likes[request.PostID]; !exists {
+		s.Likes[request.PostID] = []model.LikeRecord{}
 	}
 
 	// Check if the user has already liked the post
-	for _, like := range s.Likes[postID] {
-		if like.UserID == userID {
+	for _, like := range s.Likes[request.PostID] {
+		if like.UserID == request.UserID {
 			return "Post already liked by the same user", nil // Return success message when the user has already liked the post
 		}
 	}
 
 	// Add like if the user hasn't liked the post
 	likeRecord := model.LikeRecord{
-		UserID: userID,
-		PostID: postID,
+		UserID: request.UserID,
+		PostID: request.PostID,
 	}
-	s.Likes[postID] = append(s.Likes[postID], likeRecord)
+	s.Likes[request.PostID] = append(s.Likes[request.PostID], likeRecord)
 
 	// Optionally, log the like action if you want to track user likes
 	fmt.Printf("User %d liked Post %d\n", likeRecord.UserID, likeRecord.PostID)

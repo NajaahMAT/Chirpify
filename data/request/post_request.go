@@ -52,3 +52,8 @@ type CommentRequest struct {
 	IsEdited        bool      `json:"is_edited,omitempty"`
 	Attachments     []string  `json:"attachments,omitempty"`
 }
+
+type LikeRequest struct {
+	PostID int64 `json:"post_id"`
+	UserID int64 `json:"user_id"`
+}

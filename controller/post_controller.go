@@ -4,6 +4,7 @@ import (
 	"chirpify/data/request"
 	"chirpify/data/response"
 	"chirpify/service"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -20,7 +21,16 @@ func NewPostController(service service.PostService) *PostController {
 	}
 }
 
-// Create - Create a new post
+// @Summary Create a new post
+// @Description Create a new post for a user
+// @Tags Posts
+// @Accept json
+// @Produce json
+// @Param post body request.CreatePostRequest true "Create Post Request"
+// @Success 200 {object} response.Response
+// @Failure 400 {object} response.Response
+// @Failure 500 {object} response.Response
+// @Router /posts [post]
 func (controller *PostController) Create(ctx *gin.Context) {
 	var createPostRequest request.CreatePostRequest
 	err := ctx.ShouldBindJSON(&createPostRequest)
@@ -55,7 +65,17 @@ func (controller *PostController) Create(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, webResponse)
 }
 
-// Update - Update an existing post
+// @Summary Update an existing post
+// @Description Update an existing post with new data
+// @Tags Posts
+// @Accept json
+// @Produce json
+// @Param postID path int64 true "Post ID"
+// @Param post body request.UpdatePostRequest true "Update Post Request"
+// @Success 200 {object} response.Response
+// @Failure 400 {object} response.Response
+// @Failure 500 {object} response.Response
+// @Router /posts/{postID} [put]
 func (controller *PostController) Update(ctx *gin.Context) {
 	postID := ctx.Param("postID")
 	id, err := strconv.ParseInt(postID, 10, 64)
@@ -96,7 +116,13 @@ func (controller *PostController) Update(ctx *gin.Context) {
 	})
 }
 
-// GetAllPosts - Retrieve all posts
+// @Summary Retrieve all posts
+// @Description Get a list of all posts
+// @Tags Posts
+// @Produce json
+// @Success 200 {object} response.Response
+// @Failure 500 {object} response.Response
+// @Router /posts [get]
 func (controller *PostController) GetAllPosts(ctx *gin.Context) {
 	posts, err := controller.postService.GetAllPosts()
 	if err != nil {
@@ -115,22 +141,30 @@ func (controller *PostController) GetAllPosts(ctx *gin.Context) {
 	})
 }
 
-// LikePost - Like a specific post
+// @Summary Like a specific post
+// @Description Like a post by providing the like request
+// @Tags Posts
+// @Accept json
+// @Produce json
+// @Param likeRequest body request.LikeRequest true "Like Post Request"
+// @Success 200 {object} response.Response
+// @Failure 400 {object} response.Response
+// @Failure 500 {object} response.Response
+// @Router /posts/like [post]
 func (controller *PostController) LikePost(ctx *gin.Context) {
-	postID := ctx.Param("postID")
-	id, err := strconv.ParseInt(postID, 10, 64)
-	if err != nil {
+	var likeRequest request.LikeRequest
+
+	// Bind the incoming JSON request body to the LikeRequest struct
+	if err := ctx.ShouldBindJSON(&likeRequest); err != nil {
 		ctx.JSON(http.StatusBadRequest, response.Response{
 			Code:   http.StatusBadRequest,
 			Status: "Bad Request",
-			Data:   "Invalid post ID format",
+			Data:   err.Error(),
 		})
 		return
 	}
 
-	userID := ctx.GetInt64("userID") // Assuming userID is extracted from JWT or context
-
-	msg, err := controller.postService.LikePost(userID, id)
+	msg, err := controller.postService.LikePost(likeRequest)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, response.Response{
 			Code:   http.StatusInternalServerError,
@@ -147,7 +181,17 @@ func (controller *PostController) LikePost(ctx *gin.Context) {
 	})
 }
 
-// AddComment - Add a comment to a specific post
+// @Summary Add a comment to a specific post
+// @Description Add a comment to an existing post
+// @Tags Posts
+// @Accept json
+// @Produce json
+// @Param postID path int64 true "Post ID"
+// @Param commentRequest body request.CommentRequest true "Comment Request"
+// @Success 200 {object} response.Response
+// @Failure 400 {object} response.Response
+// @Failure 500 {object} response.Response
+// @Router /posts/{postID}/comments [post]
 func (controller *PostController) AddComment(ctx *gin.Context) {
 	postID := ctx.Param("postID")
 	id, err := strconv.ParseInt(postID, 10, 64)
@@ -181,6 +225,9 @@ func (controller *PostController) AddComment(ctx *gin.Context) {
 		return
 	}
 
+	// Log the commentID to ensure it's being returned correctly
+	log.Printf("Comment ID: %d", commentID)
+
 	// Return success response with the comment ID and success message
 	ctx.JSON(http.StatusOK, response.Response{
 		Code:   http.StatusOK,
@@ -192,7 +239,15 @@ func (controller *PostController) AddComment(ctx *gin.Context) {
 	})
 }
 
-// GetPostDetails - Retrieve all details of a specific post, including comments and likes
+// @Summary Retrieve all details of a specific post, including comments and likes
+// @Description Get all details of a specific post by its ID
+// @Tags Posts
+// @Produce json
+// @Param postID path int64 true "Post ID"
+// @Success 200 {object} response.Response
+// @Failure 400 {object} response.Response
+// @Failure 500 {object} response.Response
+// @Router /posts/{postID}/details [get]
 func (controller *PostController) GetPostDetails(ctx *gin.Context) {
 	postID := ctx.Param("postID")
 	id, err := strconv.ParseInt(postID, 10, 64)
