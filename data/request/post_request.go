@@ -2,7 +2,6 @@ package request
 
 import (
 	"chirpify/model"
-	"time"
 )
 
 // UpdatePostRequest represents the request payload for updating a post.
@@ -44,13 +43,13 @@ type CreatePostRequest struct {
 
 // CommentRequest represents the request payload for adding or updating a comment on a post.
 type CommentRequest struct {
-	UserID          int64     `json:"user_id" binding:"required"`      // ID of the user adding the comment
-	CommentText     string    `json:"comment_text" binding:"required"` // The content of the comment
-	ParentCommentID int64     `json:"parent_comment_id,omitempty"`
-	CreatedAt       time.Time `json:"created_at,omitempty"`
-	UpdatedAt       time.Time `json:"updated_at,omitempty"`
-	IsEdited        bool      `json:"is_edited,omitempty"`
-	Attachments     []string  `json:"attachments,omitempty"`
+	UserID          int64  `json:"user_id" binding:"required"`      // ID of the user adding the comment
+	CommentText     string `json:"comment_text" binding:"required"` // The content of the comment
+	ParentCommentID int64  `json:"parent_comment_id,omitempty"`
+	// CreatedAt       time.Time `json:"created_at,omitempty"`
+	// UpdatedAt       time.Time `json:"updated_at,omitempty"`
+	IsEdited    bool     `json:"is_edited,omitempty"`
+	Attachments []string `json:"attachments,omitempty"`
 }
 
 type LikeRequest struct {
